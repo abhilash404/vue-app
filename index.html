@@ -30,28 +30,39 @@
             <div class="border p-3 w-50 mx-auto">
                 <div class="text-center">
                     <h4 class="text-center"> Movie List</h4>
+                    <span v-if="flag">
+                        only 5 movies are allowed
+                    </span>
                     <hr />
                 </div>
                 <ul class="list-group">
-                    <li v-for="movie in movies" class="list-group-item">
-                        {{ movie.title }} - Rating: {{ movie.rating }}
+                    <li v-for="movie in getAllmovies()" class="list-group-item">
+                        {{ movie }}
                     </li>
             </div>
         </div>
     </div>
     
     <script>
-        const { createApp, ref, reactive, computed } = Vue;
+        const { createApp, ref, reactive, computed, watch } = Vue;
             
 
         createApp({
             
-            setup() { 
+            setup() {
+                let movies = reactive([
+                    { title: "Inception", rating: 8.8 },
+                    { title: "The Dark Knight", rating: 9.0 },
+                    { title: "Interstellar", rating: 8.6 },
+                    { title: "Parasite", rating: 8.6 },
+                    { title: "The Godfather", rating: 9.2 }
+                ]);
                 let rating = ref(0);
                 let newMovieTitle = ref("enter title");
-                const MAX = 7;
+                const MAX = 5;
+                let flag = ref(movies.length >= MAX);
                 function add(){
-                    if(movies.length <= MAX){
+                    if(movies.length < MAX){
                         movies.push({ title: newMovieTitle.value, rating: rating.value });
                     } else {
                         alert("Cannot add more than " + MAX + " movies.");
@@ -61,17 +72,28 @@
                 function remove(){
                     movies.pop();
                 };
-                let movies = reactive([
-                    { title: "Inception", rating: 8.8 },
-                    { title: "The Dark Knight", rating: 9.0 },
-                    { title: "Interstellar", rating: 8.6 },
-                    { title: "Parasite", rating: 8.6 },
-                    { title: "The Godfather", rating: 9.2 }
-                ]);
+
+                function getAllmovies(){
+                    return  movies.map((movie) =>{
+                        return `${movie.title} has a Rating: ${movie.rating}`;
+                    })
+                }
+
+
+                
+
+
+                watch(
+                    () => movies.length,
+                    (n) => {
+                        flag.value = n >= 3;
+
+                    }   
+                )
                 
                 
                 
-                return { movies, add, rating, newMovieTitle, remove};
+                return { movies, add, rating, newMovieTitle, remove, getAllmovies, flag};
             }
         }).mount("#app");
     </script>
