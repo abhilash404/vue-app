@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <title>Document</title>
+</head>
+<body>
+    <div id="app" class="container">
+        <div class="bg-info p-5 rounded m-5">
+            <div class="h2 text-center">vue padhle bhai</div>
+            <hr />
+            <div class="input-group mb-3">
+                <span class="input-group-text">Title</span>
+                <input type="text" class="form-control" 
+                v-model="newMovieTitle" >
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text">Rating</span>
+                <input type="text" class="form-control" 
+                v-model="rating">
+            </div>
+            <div class="text-center pb-3">
+                <button class="btn btn-secondary m-2 w-25" v-on:click="add">Add Movie</button>
+                <button class="btn btn-danger m-2 w-25" v-on:click="remove">Remove Movie</button>
+            </div>
+            <div class="border p-3 w-50 mx-auto">
+                <div class="text-center">
+                    <h4 class="text-center"> Movie List</h4>
+                    <hr />
+                </div>
+                <ul class="list-group">
+                    <li v-for="movie in movies" class="list-group-item">
+                        {{ movie.title }} - Rating: {{ movie.rating }}
+                    </li>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const { createApp, ref, reactive, computed } = Vue;
+            
+
+        createApp({
+            
+            setup() { 
+                let rating = ref(0);
+                let newMovieTitle = ref("enter title");
+                const MAX = 7;
+                function add(){
+                    if(movies.length <= MAX){
+                        movies.push({ title: newMovieTitle.value, rating: rating.value });
+                    } else {
+                        alert("Cannot add more than " + MAX + " movies.");
+                    }
+                };
+
+                function remove(){
+                    movies.pop();
+                };
+                let movies = reactive([
+                    { title: "Inception", rating: 8.8 },
+                    { title: "The Dark Knight", rating: 9.0 },
+                    { title: "Interstellar", rating: 8.6 },
+                    { title: "Parasite", rating: 8.6 },
+                    { title: "The Godfather", rating: 9.2 }
+                ]);
+                
+                
+                
+                return { movies, add, rating, newMovieTitle, remove};
+            }
+        }).mount("#app");
+    </script>
+</body>
+</html>
