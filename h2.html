@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <title>Document</title>
+</head>
+<body>
+    <div id="app" class="container">
+        <form v:on:submit.prevent="handlesubmit">
+            <div class="bg-info p-5 rounded m-5">
+                <div class="h2 text-center">vue padhle bhai</div>
+                <hr />
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Email</span>
+                    <input type="text" class="form-control" 
+                    v-model="formobj.email" >
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Name</span>
+                    <input type="text" class="form-control" 
+                    v-model="formobj.name">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Phone</span>
+                    <input type="text" class="form-control" 
+                    v-model="formobj.phone">
+                </div>
+                <div class="input-group mb-3">
+                    <input type="checkbox" class="form-check-input" 
+                    v-model="formobj.subcribed">
+                    <label class="form-check-label ms-2"> &nbsp; Yes, I want to subcribe</label>
+                </div>
+                <div class="text-center pb-3">
+                    <button class="btn btn-danger m-2 w-50">submit</button>
+                </div>
+
+            </div>
+        </form>
+        
+    </div>
+    
+    <script>
+        const { createApp, ref, reactive, computed, watch } = Vue;
+            
+
+        createApp({
+            
+            setup() {
+                const formobj = reactive({
+                    email:"",
+                    name:"",
+                    phone:"",
+                    subcribed:false,
+                    gender:"",
+                });
+                
+                function handlesubmit() {
+                    console.log("form submitted");
+                    console.log(formobj);
+                }
+                
+                return { formobj , handlesubmit};
+            }
+        }).mount("#app");
+    </script>
+</body>
+</html>
