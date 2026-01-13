@@ -17,17 +17,28 @@
                 <div class="input-group mb-3">
                     <span class="input-group-text">Email</span>
                     <input type="text" class="form-control" 
-                    v-model="formobj.email" >
+                    v-model.trim="formobj.email" >
                 </div>
                 <div class="input-group mb-3">
                     <span class="input-group-text">Name</span>
                     <input type="text" class="form-control" 
-                    v-model="formobj.name">
+                    v-model.trim="formobj.name">
                 </div>
                 <div class="input-group mb-3">
                     <span class="input-group-text">Phone</span>
-                    <input type="text" class="form-control" 
-                    v-model="formobj.phone">
+                    <input type="number" class="form-control" 
+                    v-model.number="formobj.phone">
+                </div>
+                <div class="border p-1">
+                    <label class="form-label">Gender</label><br>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" v-model="formobj.gender"
+                        value="male"> Male </input>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" v-model="formobj.gender"
+                        value="female" > Female </input>
+                    </div>
                 </div>
                 <div class="input-group mb-3">
                     <input type="checkbox" class="form-check-input" 
